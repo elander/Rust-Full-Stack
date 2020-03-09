@@ -27,6 +27,7 @@ async fn run() {
     Dispatcher::new(bot)
         .messages_handler(|rx: DispatcherHandlerRx<Message>| {
             rx.text_messages().for_each_concurrent(None, |(ctx, target_webpage)| async move {
+                // https://httpbin.org/get
                 let resp = reqwest::get(&target_webpage)
                     .await;
 

@@ -1,17 +1,17 @@
-// Use nightly to make this work.
-// $ rustup update nightly
-// $ rustup override set nightly
-#![feature(async_closure)]
+#[macro_use]
+extern crate fstrings;
 
-// https://github.com/rust-lang/rustfmt
-// $cargo fmt
-// $cargo fmt -- --check
-
-// $cargo watch -x 'run --release'
+// https://docs.rs/teloxide/0.2.0/teloxide/utils/markdown/fn.link.html
 use teloxide::prelude::*;
+// use teloxide::utils::markdown::link;
+use teloxide::types::ParseMode::Markdown;
 
 use reqwest;
 // use std::collections::HashMap;
+
+use serde_json::Value;
+
+use console::Style;
 
 #[tokio::main]
 async fn main() {
@@ -26,39 +26,58 @@ async fn run() {
 
     Dispatcher::new(bot)
         .messages_handler(|rx: DispatcherHandlerRx<Message>| {
-            rx.text_messages().for_each_concurrent(None, |(ctx, target_webpage)| async move {
-                let resp = reqwest::get(&target_webpage)
-                    .await;
+            rx.text_messages().for_each_concurrent(None, |(ctx, _raw_text_from_user)| async move {
+                let blue = Style::new()
+                    .blue();
 
-                match resp {
-                    Ok(body) => {
-                        let body_text_async = body.text().await;
-                        match body_text_async {
-                            Ok(payload) => {
-                                println!("Payload(body) is {:#?}", &payload);
-                                // Ignore incompatible return value with let _
-                                let _ = ctx.answer(payload).send().await
-                                    .map(async move |_| {
-                                        println!("The body was sent safely to the user.");
-                                    })
-                                    .map_err(async move |e| {
-                                        println!("Error from API limit of Telegram is {:#?}", e);
-                                        ctx.answer("There was an error from Telegram API. The body part of your target maybe too long.").send().await.log_on_error().await;
-                                    });
-                            }
-                            Err(e) => {
-                                println!("Error from parsing body to text is {:#?}", e);
-                                // Or here?
-                                ctx.answer("There was an error parsing the body of your target webpage.").send().await.log_on_error().await;
-                            }
-                        }
-                    }
-                    Err(e) => {
-                        println!("Error from GET taget_webpage is {:#?}", e);
-                        ctx.answer("There was an error. Use another url.").send().await.log_on_error().await;
-                        // ctx.answer("There was an error requesting your target webpage. Verify you entered the correct data.").send().await.log_on_error().await;
-                    }
+                // https://www.reddit.com/r/rust/new/.json?count=2
+                let subreddit = "rust";
+                let sort = "new";
+                let limit = "10"; // Max is 100, Use 2 here to ease the development.
+
+                let complete_target = f!("https://www.reddit.com/r/{subreddit}/{sort}/.json?limit={limit}");
+                // println!("{}", &complete_target);
+                let body_text = reqwest::get(&complete_target).await.unwrap().text().await.unwrap();
+
+                // println!("{:#?}", &body_text);
+
+                // Only extract what you want.
+                // https://www.google.com/search?&q=extract+only+json+parts+I+want+serde
+
+                let json_value: Value = serde_json::from_str(&body_text).unwrap();
+                // println!("{:#?}", &json_value);
+                // let list_of_posts = &json_value["data"]["children"]; // array
+                // println!("List of posts\n {:#?}", &list_of_posts);
+
+                // https://docs.serde.rs/serde_json/enum.Value.html#method.as_array
+                // It becomes vector in Rust. Then, you can use its built in methods.
+                let list_of_posts = json_value["data"]["children"].as_array().unwrap();
+                // println!("{:#?}", list_of_posts);
+
+                let mut markdown = String::new();
+                let mut index: u8 = 1;
+
+                for post in list_of_posts {
+                    let title = &post["data"]["title"];
+                    let url = &post["data"]["url"];
+
+                    let double_quote = '"';
+                    let empty_str = "";
+
+                    // https://users.rust-lang.org/t/fast-removing-chars-from-string/24554
+                    let complete_text = format!("{}. {}({})", &index, &title, &blue.apply_to(&url)).replace(double_quote, empty_str);
+                    // let complete_text = f!("{index}. {title}({blue.apply_to(&url)})"); // It doesn't work.
+                    println!("{}", &complete_text);
+
+                    let for_markdown = f!("{index}. [{title}]({url})\n").replace(double_quote, empty_str);
+                    // let for_markdown = link(url.as_str().unwrap(), title.as_str().unwrap());
+                    markdown.push_str(&for_markdown);
+                    index = index + 1;
                 }
+
+                // https://docs.rs/teloxide/0.2.0/teloxide/dispatching/struct.DispatcherHandlerCx.html
+                // https://docs.rs/teloxide/0.2.0/teloxide/requests/struct.SendMessage.html
+                ctx.answer(markdown).parse_mode(Markdown).send().await.log_on_error().await;
             })
         })
         .dispatch()
