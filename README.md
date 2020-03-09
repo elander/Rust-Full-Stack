@@ -130,11 +130,10 @@ These are from others. Visit them also.
 
 The list of what I should code. 
 
-1. Contribute to Teleoxide with echo and subreddit reader app.
+1. Contribute to Teleoxide.
 2. Use private repository for production files instead and make a version control correctly.
-3. Make the equivalent version of 1. with Tkinter.
-4. GUI app for Freelance Job List manager, Tranlsator, Web scrapers caller, Transaction etc.
-5. Make your own crate or contribute to a specific one.
+3. GUI app for post reader, Freelance Job List manager, Tranlsator, Web scrapers caller, Transaction etc.
+4. Make your own crate or contribute to a specific one.
 
 ## Contact
 
