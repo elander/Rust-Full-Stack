@@ -152,7 +152,7 @@ Send messages with them if you need an immediate help or want me to hack somethi
 
 **Everything is simple with examples but it is not easy to make them with Rust.**
 
-You can make an issue or contact me if you want more examples. Help others to have more examples with [donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HLNVQJ2L2YYZU).
+Help others to have more with [donation](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HLNVQJ2L2YYZU).
 
 ## Start
 
