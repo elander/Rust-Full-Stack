@@ -130,12 +130,10 @@ These are from others. Visit them also.
 
 The list of what I should code. 
 
-1. Use praw to read latest submissions.(Done)
-2. Extract subreddit title and link for 4.
-3. Make GUI app for 1 with Tkinter and shorcuts for them
-4. Contribute to Teleoxide.
-5. GUI app for Freelance Job List manager, Tranlsator, Web scrapers caller, Transaction etc.
-6. Make your own crate or contribute to a specific one.
+1. Contribute to Teleoxide with echo and subreddit reader app.
+2. Make the equivalent version of 1. with Tkinter.
+3. GUI app for Freelance Job List manager, Tranlsator, Web scrapers caller, Transaction etc.
+4. Make your own crate or contribute to a specific one.
 
 ## Contact
 
