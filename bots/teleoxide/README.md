@@ -1,5 +1,7 @@
 # How to make it work
 
+[![Rust Telegram bot](https://github.com/steadylearner/Rust-Full-Stack/blob/master/bots/teleoxide/rust_example.png)](https://github.com/steadylearner/Rust-Full-Stack/tree/master/bots/teleoxide/src)
+
 1. Echo app(Done)
 2. Proxy GET request bot(Done)
 3. Your own project.(Done)

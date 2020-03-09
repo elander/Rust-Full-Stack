@@ -259,6 +259,10 @@ You can find microservices examples built with **Warp**, **Tonic**, **Postgresql
 
 1. [gRPC Warp client and Tonic server with Postgresql and Redis Wrapper](https://github.com/steadylearner/Rust-Full-Stack/tree/master/microservices_with_docker)
 
+## Bots
+
+[![Rust Telegram bot](https://github.com/steadylearner/Rust-Full-Stack/blob/master/bots/teleoxide/rust_example.png)](https://github.com/steadylearner/Rust-Full-Stack/tree/master/bots/teleoxide/src)
+
 ## Resume
 
 You can find easily testable projects at [Resume repository](https://github.com/steadylearner/resume). If you are an employer, ask me to upload some projects there or here.
