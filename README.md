@@ -285,8 +285,6 @@ The most of the codes here is relevant to Rust. But, you can find the example co
 
 I am not a native speaker so there will be grammatical or type errors. You can help me to correct them. 
 
-**You can suggest your code instead of deprecated ones, imporve existing codes or ask the author to include your projects.**
-
 ## Warning
 
 This is a personal repository. I do what I want here.
