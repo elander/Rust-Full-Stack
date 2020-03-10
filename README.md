@@ -125,6 +125,7 @@ These are from others. Visit them also.
 * [a half hour to learn Rust](https://fasterthanli.me/blog/2020/a-half-hour-to-learn-rust/)
 * [Loadtest example](https://medium.com/@maxsparr0w/performance-of-node-js-compared-to-actix-web-37f20810fb1a)
 * [Web crawler in Rust](https://rolisz.ro/2020/03/01/web-crawler-in-rust/)
+* [Rust bin template](https://github.com/dpc/rust-bin-template)
 
 ## The current state of this repository
 
