@@ -130,7 +130,7 @@ These are from others. Visit them also.
 
 The list of what I should code. 
 
-1. Contribute to Teleoxide.
+1. Contribute to Teleoxide.(Done) Play with the crate more and move to 2.
 2. Use private repository for production files instead and make a version control correctly.
 3. GUI app for post reader, Freelance Job List manager, Tranlsator, Web scrapers caller, Transaction etc.
 4. Make your own crate or contribute to a specific one.
